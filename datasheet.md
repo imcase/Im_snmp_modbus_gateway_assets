@@ -33,7 +33,7 @@ Where specifically configured and authorized, the gateway can also accept an
 **SNMP write** command and send the corresponding Modbus write to the field device.
 This **remote-control function** should be enabled only for approved control points.
 
-![Modbus field device to SNMP monitoring-system gateway flow](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/mermaid-diagram.png)
+![Modbus field device to SNMP monitoring-system gateway flow](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/modbus-to-snmp-gateway-flow.png)
 
 The user configures which Modbus values to read, and how each value appears to
 SNMP software. This means the same gateway can be used with different types of
