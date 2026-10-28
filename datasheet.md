@@ -78,10 +78,10 @@ SNTP servers, as well as between the gateway and authorized SNMP managers.
 
 ## 4. Modbus-to-SNMP operation
 
-Each input mapping identifies a Modbus value to read and its corresponding
-SNMP object. At each polling cycle, the gateway requests the configured
-register from the field device and updates the mapped SNMP object with the
-latest successfully read value.
+For every value you want to monitor, configure the gateway with the relevant
+Modbus device and register. The gateway reads that register at the configured
+polling interval (5 seconds by default) and makes the latest value available to
+your SNMP monitoring system.
 
 ### Data tables
 
@@ -91,9 +91,9 @@ the gateway.
 
 | Table | Storage | Purpose | Restart behavior |
 | --- | --- | --- | --- |
-| `TABLE_DEVICES_INPUT` | Flash (persistent) | User/client-entered Modbus polling definitions, including the information used to select and map values | Retained across restart |
-| `TABLE_DEVICES_OUTPUT` | RAM (non-persistent) | Current output of polling based on `TABLE_DEVICES_INPUT` | Cleared and rebuilt as polling resumes |
-| `TABLE_SETTINGS` | RAM (non-persistent) | Predefined Web Console settings used by the application | Recreated from the application at startup |
+| `TABLE_DEVICES_INPUT` | Flash | User-defined Modbus polling and SNMP mappings | Retained across restart |
+| `TABLE_DEVICES_OUTPUT` | RAM | Current output of polling based on `TABLE_DEVICES_INPUT` | Cleared and rebuilt as polling resumes |
+| `TABLE_SETTINGS` | RAM | Predefined Web Console settings used by the application | Recreated from the application at startup |
 
 `TABLE_DEVICES_INPUT` is the configuration source for Modbus polling. The
 output table is a live result view, not a configuration backup; do not rely on
