@@ -74,7 +74,7 @@ Restart the device for the new address to take effect.
 The **network** must allow communication between the gateway and its configured
 SNTP servers, as well as between the gateway and authorized SNMP managers.
 
-![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_ethernet_settings.png)
+![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_ethernet_config.png)
 
 ## 4. Modbus-to-SNMP operation
 
