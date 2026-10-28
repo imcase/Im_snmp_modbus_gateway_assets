@@ -33,7 +33,7 @@ Where specifically configured and authorized, the gateway can also accept an
 **SNMP write** command and send the corresponding Modbus write to the field device.
 This **remote-control function** should be enabled only for approved control points.
 
-![Modbus field device to SNMP monitoring-system gateway flow](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/modbus-to-snmp-gateway-flow.png)
+![Modbus field device to SNMP monitoring-system gateway flow](assets/modbus-to-snmp-gateway-flow.png)
 
 The user configures which Modbus values to read, and how each value appears to
 SNMP software. This means the same gateway can be used with different types of
@@ -44,15 +44,16 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | Item | Detail |
 | --- | --- |
 | Controller | Tibbo TPP2W(G2) Tibbo Project PCB |
-| Enclosure | TPB2L(G2); DIN-rail and vibration-proof options are configured for this build |
+| Enclosure | TPB2L(G2), DIN-rail mounting kit, vibration-proof kit |
 | Network | On-board 10/100 Base-T Ethernet with RJ45 |
 | Field interface | Tibbit #05 RS-485 port for Modbus RTU |
-| Field connector | Normally Tibbit #20 terminal blocks; verify the fitted hardware before wiring |
-| Power | Project configuration specifies the APR-P0008 adapter; final supply wiring must match the assembled unit |
-| Setup control | On-board MD button is available to the platform; reset behavior must be verified for the deployed firmware revision |
-
-The TPP2W(G2)'s UART is not itself an RS-485 electrical interface. Modbus RTU
-requires the fitted RS-485 transceiver/module and appropriate field wiring.
+| Field connector | Tibbit #21 (4-terminal block) or Tibbit #20 (9-terminal block) |
+| Power | Tibbit #10 power supply module in socket 11 |
+| Power adapter | APR-P0008 adapter |
+| Storage | 1 MB AT45DB081E dataflash, LittleFS file system |
+| Status LEDs | On-board red/green LEDs used for the setup-error indication |
+| MD button | On-board setup (MD) button. Hold for 5 s and release to reset all settings to their defaults |
+| RST button | On-board restart (RST) button |
 
 ## 3. Interfaces and services
 
