@@ -31,7 +31,10 @@ Go-back-to: [Bookmarks](#bookmarks)
 2. [COMPLETED] Create an `assets` folder and put all the screenshots in there
 3. [IN_PROGRESS] Create a `datasheet.md` which contains all the custom info (explanation and guide)
 - [ ] __MUST__ add a `Web Console` Section
-**NOTE:** do NOT forget to mention that all Web Console `Settings` are __retained__ after a reboot (because they are stored in FLASH)
+  - [ ] Add a section for the `Database`
+  - [ ] Add a section for the `Settings`
+  - [ ] Add a section for the `System`
+  - [ ] do NOT forget to mention that all Web Console `Settings` are __retained__ after a reboot (because they are stored in FLASH)
 - [ ] __MUST__ explicitly mention to restart the device after each modification
 - [ ] __MUST__ mention the `MD button` handlinng somewhere
 ```

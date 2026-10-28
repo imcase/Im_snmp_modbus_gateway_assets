@@ -64,30 +64,25 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | Time sync | SNTP against 216.239.35.0 (time.google.com), applied with the configured time zone |
 | Web console | HTTP, port 80, 3 concurrent connections |
 
-**Default IP address.** Out of the box the device uses the static address
-`192.168.1.40`. This is a placeholder so the device can be reached on first
-power-up; you will most likely want to change it. On the Settings page,
-Ethernet tab, either enable **DHCP** so the device obtains an address from your
-network, or enter a static IP, netmask and gateway of your own choosing.
-Restart the device for the new address to take effect.
+> **Default IP address.** Out of the box the device uses the static address
+> `192.168.1.40`. This is a placeholder so the device can be reached on first
+> power-up; you will most likely want to change it. On the Settings page,
+> Ethernet tab, either enable **DHCP** so the device obtains an address from your
+> network, or enter a static IP, netmask and gateway of your own choosing.
+> Restart the device for the new address to take effect.
 
 The **network** must allow communication between the gateway and its configured
 SNTP servers, as well as between the gateway and authorized SNMP managers.
 
 ![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_ethernet_config.png)
 
-## 4. Modbus-to-SNMP operation
+## 4. Web Console
 
+### Database
 For every value you want to monitor, configure the gateway with the relevant
 Modbus device and register. The gateway reads that register at the configured
 polling interval (5 seconds by default) and makes the latest value available to
 your SNMP monitoring system.
-
-### Data tables
-
-In **Features → Data & Storage → Data Tables**, the application defines three
-tables. Their storage type is important when commissioning and troubleshooting
-the gateway.
 
 | Table | Storage | Purpose | Restart behavior |
 | --- | --- | --- | --- |
@@ -95,14 +90,20 @@ the gateway.
 | `TABLE_DEVICES_OUTPUT` | RAM | Current output of polling based on `TABLE_DEVICES_INPUT` | Cleared and rebuilt as polling resumes |
 | `TABLE_SETTINGS` | RAM | Predefined Web Console settings used by the application | Recreated from the application at startup |
 
-`TABLE_DEVICES_INPUT` is the configuration source for Modbus polling. The
-output table is a live result view, not a configuration backup; do not rely on
-it to preserve measured values or mappings after a restart. `TABLE_SETTINGS`
-is predefined by the application and contains the Web Console's settings.
+> Use `TABLE_DEVICES_INPUT` to define which Modbus values the gateway monitors.
+> `TABLE_DEVICES_OUTPUT` shows the current polling results; it is a live view,
+> not a saved history, and is rebuilt after restart. `TABLE_SETTINGS` contains
+> the settings used by the Web Console.
 
-**After any change to `TABLE_DEVICES_INPUT`, or to Settings through the Web
-Console or SNMP, restart the device.** The change is retained immediately, but
-the polling engine does not apply it until the device restarts.
+> **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Web
+> Console or SNMP, restart the device.** The change is retained immediately, but
+> the polling engine does not apply it until the device restarts.
+
+
+
+**CONTINE FROM HERE!**
+
+
 
 | Mapping property | Meaning |
 | --- | --- |
