@@ -1,0 +1,233 @@
+# SNMP–Modbus Gateway
+
+**Firmware:** `SNMP_Modbus_Gateway` v1.0.2
+**Platform:** Tibbo TPP2W(G2) in a TPB2L(G2) enclosure
+
+> ## Configuration storage and restart behavior
+>
+> Only the user-configured polling definitions in `TABLE_DEVICES_INPUT` are
+> stored in flash and survive a restart. `TABLE_DEVICES_OUTPUT` and
+> `TABLE_SETTINGS` are RAM tables: their contents do not persist across a
+> restart.
+>
+> **After any change to `TABLE_DEVICES_INPUT`, or to Settings through the Web
+> Console or SNMP, restart the device.** Until it restarts, the change is
+> stored but not applied. After restart, verify that the persistent input
+> mappings have loaded, the runtime tables have been rebuilt, and the expected
+> polling result and SNMP object are present.
+
+---
+
+## 1. Overview
+
+The SNMP–Modbus Gateway lets **SNMP monitoring software read** values from
+**Modbus equipment** over **Ethernet**. It is used when equipment such as meters, sensors,
+controllers, or other industrial devices communicates with Modbus, while the
+customer's monitoring system uses SNMP.
+
+The gateway regularly reads the Modbus values selected by the user and makes
+them available as SNMP values. A monitoring system can then display the values,
+record them, or use them to raise alarms.
+
+Where specifically configured and authorized, the gateway can also accept an
+**SNMP write** command and send the corresponding Modbus write to the field device.
+This **remote-control function** should be enabled only for approved control points.
+
+![Modbus field device to SNMP monitoring-system gateway flow](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/mermaid-diagram.png)
+
+The user configures which Modbus values to read, and how each value appears to
+SNMP software. This means the same gateway can be used with different types of
+Modbus equipment instead of being limited to a single sensor or meter.
+
+## 2. Hardware
+
+| Item | Detail |
+| --- | --- |
+| Controller | Tibbo TPP2W(G2) Tibbo Project PCB |
+| Enclosure | TPB2L(G2); DIN-rail and vibration-proof options are configured for this build |
+| Network | On-board 10/100 Base-T Ethernet with RJ45 |
+| Field interface | Tibbit #05 RS-485 port for Modbus RTU |
+| Field connector | Normally Tibbit #20 terminal blocks; verify the fitted hardware before wiring |
+| Power | Project configuration specifies the APR-P0008 adapter; final supply wiring must match the assembled unit |
+| Setup control | On-board MD button is available to the platform; reset behavior must be verified for the deployed firmware revision |
+
+The TPP2W(G2)'s UART is not itself an RS-485 electrical interface. Modbus RTU
+requires the fitted RS-485 transceiver/module and appropriate field wiring.
+
+## 3. Interfaces and services
+
+| Interface | Purpose | Notes |
+| --- | --- | --- |
+| Ethernet | Device configuration and SNMP access | Assign an address appropriate to the deployment network |
+| SNMP | Exposes mapped values and accepts configured write objects | UDP port 161; use the configured SNMP version and credentials |
+| Modbus RTU | Polls and, where enabled, writes field-device registers | RS-485 electrical interface required |
+| Web console | Configuration and diagnostics | Availability and authentication follow the installed AppBlocks/firmware configuration |
+
+Do not publish the gateway directly to an untrusted network. Restrict SNMP and
+web-console access with network segmentation and firewall rules. Prefer the
+project-approved secure SNMP configuration; SNMPv2c community strings such as
+`public` are appropriate only for an isolated bench.
+
+## 4. Modbus-to-SNMP operation
+
+Each input mapping identifies a Modbus value to read and its corresponding
+SNMP object. At each polling cycle, the gateway requests the configured
+register from the field device and updates the mapped SNMP object with the
+latest successfully read value.
+
+### Data tables
+
+In **Features → Data & Storage → Data Tables**, the application defines three
+tables. Their storage type is important when commissioning and troubleshooting
+the gateway.
+
+| Table | Storage | Purpose | Restart behavior |
+| --- | --- | --- | --- |
+| `TABLE_DEVICES_INPUT` | Flash (persistent) | User/client-entered Modbus polling definitions, including the information used to select and map values | Retained across restart |
+| `TABLE_DEVICES_OUTPUT` | RAM (non-persistent) | Current output of polling based on `TABLE_DEVICES_INPUT` | Cleared and rebuilt as polling resumes |
+| `TABLE_SETTINGS` | RAM (non-persistent) | Predefined Web Console settings used by the application | Recreated from the application at startup |
+
+`TABLE_DEVICES_INPUT` is the configuration source for Modbus polling. The
+output table is a live result view, not a configuration backup; do not rely on
+it to preserve measured values or mappings after a restart. `TABLE_SETTINGS`
+is predefined by the application and contains the Web Console's settings.
+
+**After any change to `TABLE_DEVICES_INPUT`, or to Settings through the Web
+Console or SNMP, restart the device.** The change is retained immediately, but
+the polling engine does not apply it until the device restarts.
+
+| Mapping property | Meaning |
+| --- | --- |
+| Name | Human-readable name for the mapping |
+| Modbus unit ID | Address of the target Modbus server/device (1–255) |
+| Function code | Modbus operation used for the mapping; confirm the device supports it |
+| Register address | Protocol address expected by the configured Modbus client (0–65535) |
+| SNMP object column | Object identifier column used below the configured private enterprise branch |
+| Value type | SNMP representation of the mapped value, such as integer or string |
+| Access | Read-only for telemetry, or read/write only for approved control points |
+
+### Register addressing and value interpretation
+
+Do not assume a datasheet reference number is the address used on the wire.
+For example, documentation may call a holding register `40001`, while the
+Modbus protocol address is `0`. Confirm the address format expected by the
+gateway and the connected device.
+
+For multi-register, signed, floating-point, or scaled measurements, define the
+byte order, word order, signedness, and scale in the mapping record. A value
+that is numerically plausible but decoded in the wrong order is not valid.
+
+### Write path
+
+For a configured read/write object, an SNMP SET is validated and matched to a
+write mapping. The gateway sends the configured Modbus write function and
+reports success, failure, or a reboot-required state to the management path.
+The application includes retry handling for Modbus writes; communication
+failures must still be investigated at the RS-485/device layer.
+
+Remote writes can affect physical equipment. Protect them with least-privilege
+SNMP credentials, restricted network access, and a documented rollback plan.
+
+## 5. SNMP object addressing
+
+The project uses a private enterprise branch rooted at:
+
+```text
+1.3.6.1.4.1.20738
+```
+
+For scalar runtime objects, the effective object form is:
+
+```text
+<sysObjectID>.1.<column>.0
+```
+
+The final `.0` is the scalar instance identifier and is required for an SNMP
+GET of a scalar object. The application configuration may display a shorter
+base/column value; use the complete registered scalar OID returned by an SNMP
+walk or supplied MIB when querying the device.
+
+Example bench query (replace the address, community, and OID with the deployed
+configuration):
+
+```bash
+snmpget -v2c -c <bench-community> -On <gateway-ip> \
+  1.3.6.1.4.1.20738.1.<column>.0
+```
+
+## 6. RS-485 installation
+
+Power down equipment before connecting the field bus. Wire the RS-485 pair to
+the matching terminals for the fitted Tibbit/socket configuration.
+
+```text
+Modbus field device                 TPP2W(G2) with Tibbit #05
+
+RS-485 A / D+     ----------------  matching A / D+ terminal
+RS-485 B / D-     ----------------  matching B / D- terminal
+Signal reference  ----------------  reference terminal, if required
+```
+
+- Vendors do not label A/B consistently. Verify the electrical D+/D- mapping
+  against both devices before applying power.
+- Use suitable twisted-pair cable. Terminate only the physical ends of a bus
+  when required by the cable topology and equipment documentation.
+- Apply biasing in one appropriate location. Follow the equipment guidance for
+  shielding, isolation, and signal reference; do not defeat isolation by
+  blindly joining grounds.
+- Configure matching baud rate, data bits, parity, stop bits, and unit ID on
+  both the gateway and field device.
+
+Example bench parameters only:
+
+```text
+Baud rate: 9600
+Data bits: 8
+Parity:    None
+Stop bits: 1
+Unit ID:   1
+```
+
+## 7. Commissioning checklist
+
+1. Record the field device's Modbus register map, communication parameters,
+   data representation, and expected engineering values.
+2. Install and verify the RS-485 hardware and field wiring.
+3. Configure Ethernet addressing for the local network and limit management
+   access to authorized hosts.
+4. Create the Modbus-to-SNMP mappings and restart the gateway if required.
+5. Prove the southbound path first: confirm that the gateway successfully
+   polls the expected raw Modbus value.
+6. From an SNMP manager, walk the private enterprise branch and use the exact
+   returned scalar OID for an SNMP GET.
+7. Change the physical input or simulated register, wait for a successful
+   Modbus poll, and verify that the SNMP value changes accordingly.
+8. Where a write mapping is deliberately enabled, test it in a safe bench
+   setup and verify the resulting field-device register separately.
+
+## 8. Troubleshooting
+
+| Symptom | Checks |
+| --- | --- |
+| SNMP responds but value is stale or zero | Verify the Modbus poll result, unit ID, function code, register addressing, serial settings, scaling, and byte/word order. An SNMP response alone does not prove the field link works. |
+| SNMP GET returns `No Such Object` or `No Such Instance` | Walk the configured enterprise branch and query the full scalar OID, including its `.0` instance suffix. |
+| No Modbus response | Check RS-485 polarity, termination/biasing, serial parameters, selected Tibbit/socket, unit ID, and whether the target actually supports the requested function/register. |
+| SNMP SET fails | Confirm that the object is configured read/write, the caller is authorized, the write mapping exists, and the field device accepts the function/value. |
+| Value has the wrong magnitude | Check signedness, scale factor, register count, and byte/word order. |
+
+## 9. Deployment record
+
+Keep this record with each installed gateway:
+
+| Item | Installed value |
+| --- | --- |
+| Gateway serial / location | |
+| Firmware version | |
+| Ethernet address / VLAN | |
+| SNMP version and credential reference | |
+| `sysObjectID` / enterprise OID branch | |
+| Tibbit #05 socket and terminal assignment | |
+| RS-485 serial settings | |
+| Modbus device/unit IDs and register map revision | |
+| OID mapping and scale/byte-order definition | |
+| Commissioning date and test result | |
