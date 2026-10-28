@@ -33,7 +33,7 @@ Where specifically configured and authorized, the gateway can also accept an
 **SNMP write** command and send the corresponding Modbus write to the field device.
 This **remote-control function** should be enabled only for approved control points.
 
-![Modbus field device to SNMP monitoring-system gateway flow](assets/modbus-to-snmp-gateway-flow.png)
+![Modbus field device to SNMP monitoring-system gateway flow](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_flow.png)
 
 The user configures which Modbus values to read, and how each value appears to
 SNMP software. This means the same gateway can be used with different types of
@@ -55,19 +55,26 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | MD button | On-board setup (MD) button. Hold for 5 s and release to reset all settings to their defaults |
 | RST button | On-board restart (RST) button |
 
-## 3. Interfaces and services
+## 3. Network configuration and services
 
-| Interface | Purpose | Notes |
-| --- | --- | --- |
-| Ethernet | Device configuration and SNMP access | Assign an address appropriate to the deployment network |
-| SNMP | Exposes mapped values and accepts configured write objects | UDP port 161; use the configured SNMP version and credentials |
-| Modbus RTU | Polls and, where enabled, writes field-device registers | RS-485 electrical interface required |
-| Web console | Configuration and diagnostics | Availability and authentication follow the installed AppBlocks/firmware configuration |
+| Item | Setting |
+| --- | --- |
+| Ethernet | static IP/netmask/gateway, or DHCP  |
+| SNMP | SNMPv2c and SNMPv3 agent, port 161, configurable read/write communities and SNMPv3 security credentials |
+| Time sync | SNTP against 216.239.35.0 (time.google.com), applied with the configured time zone |
+| Web console | HTTP, port 80, 3 concurrent connections |
 
-Do not publish the gateway directly to an untrusted network. Restrict SNMP and
-web-console access with network segmentation and firewall rules. Prefer the
-project-approved secure SNMP configuration; SNMPv2c community strings such as
-`public` are appropriate only for an isolated bench.
+**Default IP address.** Out of the box the device uses the static address
+`192.168.1.40`. This is a placeholder so the device can be reached on first
+power-up; you will most likely want to change it. On the Settings page,
+Ethernet tab, either enable **DHCP** so the device obtains an address from your
+network, or enter a static IP, netmask and gateway of your own choosing.
+Restart the device for the new address to take effect.
+
+The **network** must allow communication between the gateway and its configured
+SNTP servers, as well as between the gateway and authorized SNMP managers.
+
+![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_ethernet_settings.png)
 
 ## 4. Modbus-to-SNMP operation
 

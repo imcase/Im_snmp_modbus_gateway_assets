@@ -27,7 +27,7 @@ Go-back-to: [Bookmarks](#bookmarks)
 ---
 Go-back-to: [Bookmarks](#bookmarks)
 ---
-1. [COMPLETED] On github, under the `imcase` account, create a repo called `snmp_modbus_gateway_assets`
+1. [COMPLETED] On github, under the `imcase` account, create a __PUBLIC__ repo called `snmp_modbus_gateway_assets`
 2. [COMPLETED] Create an `assets` folder and put all the screenshots in there
 3. [IN_PROGRESS] Create a `datasheet.md` which contains all the custom info (explanation and guide)
 - [ ] __MUST__ add a `Web Console` Section
@@ -48,8 +48,10 @@ elapsed does nothing.
 
 
 5. [PENDING] Add `imcase/snmp_modbus_gateway_assets` as __SUBMODULE__ to this repo
-6. [PENDING] On github, under the `tibbotech` account, create a repo called `snmp_modbus_gateway_assets`
+6. [PENDING] On github, under the `tibbotech` account, create a __PUBLIC__ repo called `snmp_modbus_gateway_assets`
 - [ ] Copy all the files and folders from `imcase/snmp_modbus_gateway_assets` to `tibbotech/snmp_modbus_gateway_assets`
+- [ ] In `datasheet.md` change references of __images__ from `imcase/Im_snmp_modbus_gateway_assets` to `tibbotech/snmp_modbus_gateway_assets`
+**NOTE:** If you do NOT do this, then you won't be able to see the images
 
 
 
