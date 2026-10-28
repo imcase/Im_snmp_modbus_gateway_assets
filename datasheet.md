@@ -64,6 +64,8 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | Time sync | SNTP against 216.239.35.0 (time.google.com), applied with the configured time zone |
 | Web console | HTTP, port 80, 3 concurrent connections |
 
+<br>
+
 > **Default IP address.** Out of the box the device uses the static address
 > `192.168.1.40`. This is a placeholder so the device can be reached on first
 > power-up; you will most likely want to change it. On the Settings page,
@@ -71,8 +73,8 @@ Modbus equipment instead of being limited to a single sensor or meter.
 > network, or enter a static IP, netmask and gateway of your own choosing.
 > Restart the device for the new address to take effect.
 
-The **network** must allow communication between the gateway and its configured
-SNTP servers, as well as between the gateway and authorized SNMP managers.
+> The **network** must allow communication between the gateway and its configured
+> SNTP servers, as well as between the gateway and authorized SNMP managers.
 
 ![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_ethernet_config.png)
 
@@ -84,11 +86,13 @@ Modbus device and register. The gateway reads that register at the configured
 polling interval (5 seconds by default) and makes the latest value available to
 your SNMP monitoring system.
 
-| Table | Storage | Purpose | Restart behavior |
-| --- | --- | --- | --- |
-| `TABLE_DEVICES_INPUT` | Flash | User-defined Modbus polling and SNMP mappings | Retained across restart |
-| `TABLE_DEVICES_OUTPUT` | RAM | Current output of polling based on `TABLE_DEVICES_INPUT` | Cleared and rebuilt as polling resumes |
-| `TABLE_SETTINGS` | RAM | Predefined Web Console settings used by the application | Recreated from the application at startup |
+| Table | Storage | Entries | User-defined | After reboot | Purpose |
+| --- | --- | --- | --- | --- | --- |
+| `TABLE_DEVICES_INPUT` | Flash | Max. 30 | Yes | Retained | Modbus-to-SNMP mappings |
+| `TABLE_DEVICES_OUTPUT` | RAM | Max. 30 | No | Rebuilt | Latest polling results |
+| `TABLE_SETTINGS` | RAM | 22 predefined | No | Recreated | Web Console settings |
+
+<br>
 
 > Use `TABLE_DEVICES_INPUT` to define which Modbus values the gateway monitors.
 > `TABLE_DEVICES_OUTPUT` shows the current polling results; it is a live view,
@@ -99,7 +103,7 @@ your SNMP monitoring system.
 > Console or SNMP, restart the device.** The change is retained immediately, but
 > the polling engine does not apply it until the device restarts.
 
-
+<br>
 
 **CONTINE FROM HERE!**
 
