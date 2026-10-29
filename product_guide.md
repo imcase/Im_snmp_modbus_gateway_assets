@@ -241,8 +241,14 @@ system using `snmpwalk`.
 It also includes a brief SNMP write example, showing how an authorized client
 can use `snmpset` to write a Modbus value and update a gateway setting.
 
-### 5.1 Connect Modbus to Gateway
+### 5.1 Connect the Modbus BP#02 to the Gateway
 
+In this example, we use the Tibbo Modbus BP#02, an ambient-temperature and
+relative-humidity sensor. Connect it to the TPP2(G2) through the 4-terminal
+block.
+
+
+<Show image of BP#02 and TPP2G2>
 
 
 <br><br>
