@@ -30,14 +30,14 @@ Go-back-to: [Bookmarks](#bookmarks)
 1. [COMPLETED] On github, under the `imcase` account, create a __PUBLIC__ repo called `snmp_modbus_gateway_assets`
 2. [COMPLETED] Create an `assets` folder and put all the screenshots in there
 3. [IN_PROGRESS] Create `datasheet.md` with project-specific information, explanations, and guidance.
-- [ ] __MUST__ include a `Web Console` section:
-  - [ ] Add a `Database` subsection.
-    - [ ] State that `TABLE_DEVICES_INPUT` supports a maximum of 30 entries.
-  - [ ] Add a `Settings` subsection.
+- [X] __MUST__ include a `Web Console` section:
+  - [X] Add a `Database` subsection.
+    - [X] State that `TABLE_DEVICES_INPUT` supports a maximum of 30 entries.
+  - [X] Add a `Settings` subsection.
   - [ ] Add a `System` subsection.
-  - [ ] State that all Web Console `Settings` are __retained__ after a restart because they are stored in FLASH.
+  - [X] State that all Web Console `Settings` are __retained__ after a restart because they are stored in FLASH.
 - [ ] __MUST__ explicitly state that the device must be `restarted after every modification`.
-- [ ] __MUST__ document `MD button` handling, including the following reset procedure:
+4. [PENDING] __MUST__ document `MD button` handling, including the following reset procedure:
 ```
 #### Resetting settings to defaults
 
@@ -48,12 +48,14 @@ network settings, so the device returns to the static address
 `SETTINGS_INIT` event (§9). Releasing the button before 5 seconds have
 elapsed does nothing.
 ```
-4. [IN_PROGRESS] Upload the project file `SNMP_Modbus_Gateway.json` to this repo
+5. [PENDING] __MUST__ add an example showing from start to end how to use the device
+- [ ] Do NOT forget an example of `snmpwalk`, `snmpget`, and `snmpset`
+
+
+10. [IN_PROGRESS] Upload the project file `SNMP_Modbus_Gateway.json` to this repo
 **NOTE:** May need to keep on copying updated versions of this project.
-
-
-5. [PENDING] Add `imcase/snmp_modbus_gateway_assets` as __SUBMODULE__ to this repo
-6. [PENDING] On github, under the `tibbotech` account, create a __PUBLIC__ repo called `snmp_modbus_gateway_assets`
+11. [PENDING] Add `imcase/snmp_modbus_gateway_assets` as __SUBMODULE__ to this repo
+12. [PENDING] On github, under the `tibbotech` account, create a __PUBLIC__ repo called `snmp_modbus_gateway_assets`
 - [ ] Copy all the files and folders from `imcase/snmp_modbus_gateway_assets` to `tibbotech/snmp_modbus_gateway_assets`
 - [ ] In `datasheet.md` change references of __images__ from `imcase/Im_snmp_modbus_gateway_assets` to `tibbotech/snmp_modbus_gateway_assets`
 **NOTE:** If you do NOT do this, then you won't be able to see the images

@@ -10,13 +10,14 @@
 ## 1. Overview
 
 The SNMP–Modbus Gateway lets **SNMP monitoring software read** values from
-**Modbus equipment** over **Ethernet**. It is used when equipment such as meters, sensors,
+**Modbus equipment** over **Ethernet**.
+It is used when equipment such as meters, sensors,
 controllers, or other industrial devices communicates with Modbus, while the
 customer's monitoring system uses SNMP.
 
 The gateway regularly reads the Modbus values selected by the user and makes
-them available as SNMP values. A monitoring system can then display the values,
-record them, or use them to raise alarms.
+them available as SNMP values.
+A monitoring system can then display the values, record them, or use them to raise alarms.
 
 Where specifically configured and authorized, the gateway can also accept an
 **SNMP write** command and send the corresponding Modbus write to the field device.
@@ -24,8 +25,8 @@ This **remote-control function** should be enabled only for approved control poi
 
 ![Modbus field device to SNMP monitoring-system gateway flow](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_flow.png)
 
-The user configures which Modbus values to read, and how each value appears to
-SNMP software. This means the same gateway can be used with different types of
+The user configures which Modbus values to read, and how each value appears to SNMP software.
+This means the same gateway can be used with different types of
 Modbus equipment instead of being limited to a single sensor or meter.
 
 <br>
@@ -64,14 +65,11 @@ Modbus equipment instead of being limited to a single sensor or meter.
 <br>
 
 > **NOTE:**
-> - **Default IP address.** Out of the box the device uses the static address
-> `192.168.1.40`. This is a placeholder so the device can be reached on first
-> power-up; you will most likely want to change it. On the Settings page,
-> Ethernet tab, either enable **DHCP** so the device obtains an address from your
-> network, or enter a static IP, netmask and gateway of your own choosing.
-> Restart the device for the new address to take effect.
-> - The **network** must allow communication between the gateway and its configured
-> SNTP servers, as well as between the gateway and authorized SNMP managers.
+> - Out of the box, the device uses the **default** static IP address
+> `192.168.1.40`. This placeholder makes the device reachable on first
+> power-up; change it to match your network.
+> - A **network connection** is required for communication between the gateway
+> and its configured SNTP servers, as well as authorized SNMP managers.
 
 <br>
 
@@ -80,9 +78,8 @@ Modbus equipment instead of being limited to a single sensor or meter.
 ## 4. Web Console
 
 ### 4.1 Database
-For every value you want to monitor, configure the gateway with the relevant
-Modbus device and register. The gateway reads that register at the configured
-polling interval (5 seconds by default) and makes the latest value available to
+For every value you want to monitor, configure the gateway with the relevant Modbus device and register.
+The gateway reads that register at the configured polling interval (5 seconds by default) and makes the latest value available to
 your SNMP monitoring system.
 
 | Table | Storage | Entries | User-defined | After reboot | Purpose |
@@ -95,12 +92,10 @@ your SNMP monitoring system.
 
 > **NOTE:**
 > - Use `TABLE_DEVICES_INPUT` to define which Modbus values the gateway monitors.
-> `TABLE_DEVICES_OUTPUT` shows the current polling results; it is a live view,
-> not a saved history, and is rebuilt after restart. `TABLE_SETTINGS` contains
-> the settings used by the Web Console.
-> - **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Web
-> Console or SNMP, restart the device.** The change is retained immediately, but
-> the polling engine does not apply it until the device restarts.
+> - `TABLE_DEVICES_OUTPUT` shows the current polling results; it is a live view, not a saved history, and is rebuilt after restart.
+> - `TABLE_SETTINGS` contains the settings used by the Web Console.
+> - **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Web Console or SNMP, restart the device.**
+> The change is retained immediately, but the polling engine does not apply it until the device restarts.
 
 <br>
 
@@ -136,7 +131,7 @@ tables.
 Use the Settings area to review device information and configure polling,
 network, and SNMP access. 
 
-> **Reminder:** _RESTART_ the device after changing any setting so the new value is applied.
+> **Reminder:** `RESTART` the device after changing any setting so the new value is applied.
 
 <br>
 
@@ -152,7 +147,7 @@ The `Info` group provides **maintenance** and **capacity** information.
 
 Use the `Config` group to set the **Polling Interval** and **Debugprint**.
 
-> **NOTE:** Adjust the *Polling Interval* to suit your application requirements.
+> **NOTE:** Adjust the `Polling Interval` to suit your application requirements.
 
 ![Web Console Settings, Config group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_config.png)
 
@@ -161,8 +156,9 @@ Use the `Config` group to set the **Polling Interval** and **Debugprint**.
 #### 4.2.3 Network
 
 The Network group lets you enable DHCP or configure a static Ethernet IP
-address, netmask, and gateway. When DHCP is enabled, the static Ethernet
-address fields are unavailable.
+address, netmask, and gateway.
+
+> **NOTE:** When DHCP is enabled, the static Ethernet address fields are unavailable.
 
 ![Web Console Settings, Network group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_network.png)
 
@@ -170,34 +166,39 @@ address fields are unavailable.
 
 #### 4.2.4 SNMP
 
-SNMP managers can read gateway values with `snmpget` or `snmpwalk`. Where
-write access is configured and authorized, they can also update supported
-values with `snmpset`.
+Use the `SNMP` group to configure how your monitoring system connects to the gateway.
+You can set the SNMP port, read and write community strings, device description, system object ID, and SNMPv3 user and security settings.
 
-The SNMP group lets you configure the SNMP port, read and write communities,
-system description, system object ID, and SNMPv3 user, authentication, and
-privacy settings. Use the organization-approved credentials and security
-settings before deploying the gateway.
+![Web Console Settings, SNMP basic settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_snmp_basic_settings.png)
 
-> **Warning:** SNMP writes can affect connected equipment. Enable write access
-> only for approved control points and authorized users.
+> **NOTE:**
+> - **Read:** Use SNMP monitoring software to read gateway values with `snmpget` or `snmpwalk`.
+> - **Write:** Authorized SNMP clients can configure __ALL__ gateway SNMP objects with `snmpset`.
+> - Before deploying the gateway, use credentials and security settings approved by your organization.
 
-The project uses a private enterprise branch rooted at:
+<br>
+
+![Web Console Settings, SNMPv3 security settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_snmp_security_settings.png)
+
+<br>
+
+### Scalar Instance Object-ID
+
+Each mapped gateway value is available through a **full SNMP OID**.
+Its composition is:
 
 ```text
-1.3.6.1.4.1.20738
+<SysObjectID>.1.<OID_COLUMN>.0
 ```
 
-For scalar runtime objects, the effective object form is:
+> **NOTE:**
+> - By default, `sysObjectID` is set to `1.3.6.1.4.1.20738`. It may be
+>   extended with a child OID, for example `1.3.6.1.4.1.20738.45.46`.
+> - The final `.0` is required when querying an individual value.
+> - Configure `OID_COLUMN` in `TABLE_DEVICES_INPUT`.
+> - To minimize mistakes, use the full OID returned by `snmpwalk`.
 
-```text
-<sysObjectID>.1.<column>.0
-```
-
-The final `.0` is the scalar instance identifier and is required for an SNMP
-GET of a scalar object. The application configuration may display a shorter
-base/column value; use the complete registered scalar OID returned by an SNMP
-walk or supplied MIB when querying the device.
+<br>
 
 Example bench query (replace the address, community, and OID with the deployed
 configuration):
@@ -208,6 +209,17 @@ snmpget -v2c -c <bench-community> -On <gateway-ip> \
 ```
 
 <br>
+
+### 4.3 System
+
+Use the System page for device-level actions, including restarting the gateway
+after configuration changes.
+
+#### Resetting settings to defaults
+
+To restore the default settings, press and hold the on-board **MD button** for
+**5 seconds**, then release it. Releasing the button before 5 seconds have
+elapsed does nothing.
 
 --- 
 
