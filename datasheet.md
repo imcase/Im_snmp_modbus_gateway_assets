@@ -75,7 +75,7 @@ Modbus equipment instead of being limited to a single sensor or meter.
 
 <br>
 
-![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_ethernet_config.png)
+![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_network.png)
 
 <br>
 
@@ -149,7 +149,7 @@ network, and SNMP access.
 
 The **Info** group provides maintenance and capacity information.
 
-![Web Console Settings, Info group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings.png)
+![Web Console Settings, Info group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_info.png)
 
 <br>
 
