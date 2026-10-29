@@ -230,40 +230,24 @@ Use **Initialize Settings** to restore the device's configuration to its factory
 
 <br><br>
 
+---
+
+## 5. Deployment Example
+
+This example shows how to connect a Modbus device to the gateway, configure one
+Modbus value for polling, and make that value available to an SNMP monitoring
+system using `snmpwalk`.
+
+It also includes a brief SNMP write example, showing how an authorized client
+can use `snmpset` to write a Modbus value and update a gateway setting.
+
+### 5.1 Connect Modbus to Gateway
+
+
+
+<br><br>
+
 --- 
-
-## 5. RS-485 installation
-
-Power down equipment before connecting the field bus. Wire the RS-485 pair to
-the matching terminals for the fitted Tibbit/socket configuration.
-
-```text
-Modbus field device                 TPP2W(G2) with Tibbit #05
-
-RS-485 A / D+     ----------------  matching A / D+ terminal
-RS-485 B / D-     ----------------  matching B / D- terminal
-Signal reference  ----------------  reference terminal, if required
-```
-
-- Vendors do not label A/B consistently. Verify the electrical D+/D- mapping
-  against both devices before applying power.
-- Use suitable twisted-pair cable. Terminate only the physical ends of a bus
-  when required by the cable topology and equipment documentation.
-- Apply biasing in one appropriate location. Follow the equipment guidance for
-  shielding, isolation, and signal reference; do not defeat isolation by
-  blindly joining grounds.
-- Configure matching baud rate, data bits, parity, stop bits, and unit ID on
-  both the gateway and field device.
-
-Example bench parameters only:
-
-```text
-Baud rate: 9600
-Data bits: 8
-Parity:    None
-Stop bits: 1
-Unit ID:   1
-```
 
 ## 6. Commissioning checklist
 
@@ -282,6 +266,10 @@ Unit ID:   1
 8. Where a write mapping is deliberately enabled, test it in a safe bench
    setup and verify the resulting field-device register separately.
 
+<br><br>
+
+---
+
 ## 7. Troubleshooting
 
 | Symptom | Checks |
@@ -292,19 +280,3 @@ Unit ID:   1
 | SNMP SET fails | Confirm that the object is configured read/write, the caller is authorized, the write mapping exists, and the field device accepts the function/value. |
 | Value has the wrong magnitude | Check signedness, scale factor, register count, and byte/word order. |
 
-## 8. Deployment record
-
-Keep this record with each installed gateway:
-
-| Item | Installed value |
-| --- | --- |
-| Gateway serial / location | |
-| Firmware version | |
-| Ethernet address / VLAN | |
-| SNMP version and credential reference | |
-| `sysObjectID` / enterprise OID branch | |
-| Tibbit #05 socket and terminal assignment | |
-| RS-485 serial settings | |
-| Modbus device/unit IDs and register map revision | |
-| OID mapping and scale/byte-order definition | |
-| Commissioning date and test result | |
