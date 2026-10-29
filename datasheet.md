@@ -83,7 +83,7 @@ Modbus equipment instead of being limited to a single sensor or meter.
 
 ## 4. Web Console
 
-### Database
+### 4.1 Database
 For every value you want to monitor, configure the gateway with the relevant
 Modbus device and register. The gateway reads that register at the configured
 polling interval (5 seconds by default) and makes the latest value available to
@@ -108,7 +108,7 @@ your SNMP monitoring system.
 
 <br>
 
-### Database column reference
+### Column reference
 
 The following table explains the columns shown in the Web Console database
 tables.
@@ -135,13 +135,50 @@ tables.
 
 <br>
 
----
+### 4.2 Settings
 
-## 5. SNMP access and object addressing
+Use the Settings area to review device information and configure polling,
+network, and SNMP access. 
+
+> Reminder: restart the device after changing any setting so the
+> new value is applied.
+
+<br>
+
+#### 4.2.1 Info
+
+The **Info** group provides maintenance and capacity information.
+
+![Web Console Settings, Info group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings.png)
+
+<br>
+
+#### 4.2.2 Config
+
+The Config group lets you set the polling interval and enable or disable debug
+output. Use the polling interval appropriate for the connected Modbus device
+and the required update rate.
+
+<br>
+
+#### 4.2.3 Network
+
+The Network group lets you enable DHCP or configure a static Ethernet IP
+address, netmask, and gateway. When DHCP is enabled, the static Ethernet
+address fields are unavailable.
+
+<br>
+
+#### 4.2.4 SNMP
 
 SNMP managers can read gateway values with `snmpget` or `snmpwalk`. Where
 write access is configured and authorized, they can also update supported
 values with `snmpset`.
+
+The SNMP group lets you configure the SNMP port, read and write communities,
+system description, system object ID, and SNMPv3 user, authentication, and
+privacy settings. Use the organization-approved credentials and security
+settings before deploying the gateway.
 
 > **Warning:** SNMP writes can affect connected equipment. Enable write access
 > only for approved control points and authorized users.
@@ -171,7 +208,11 @@ snmpget -v2c -c <bench-community> -On <gateway-ip> \
   1.3.6.1.4.1.20738.1.<column>.0
 ```
 
-## 6. RS-485 installation
+<br>
+
+--- 
+
+## 5. RS-485 installation
 
 Power down equipment before connecting the field bus. Wire the RS-485 pair to
 the matching terminals for the fitted Tibbit/socket configuration.
@@ -204,7 +245,7 @@ Stop bits: 1
 Unit ID:   1
 ```
 
-## 7. Commissioning checklist
+## 6. Commissioning checklist
 
 1. Record the field device's Modbus register map, communication parameters,
    data representation, and expected engineering values.
@@ -221,7 +262,7 @@ Unit ID:   1
 8. Where a write mapping is deliberately enabled, test it in a safe bench
    setup and verify the resulting field-device register separately.
 
-## 8. Troubleshooting
+## 7. Troubleshooting
 
 | Symptom | Checks |
 | --- | --- |
@@ -231,7 +272,7 @@ Unit ID:   1
 | SNMP SET fails | Confirm that the object is configured read/write, the caller is authorized, the write mapping exists, and the field device accepts the function/value. |
 | Value has the wrong magnitude | Check signedness, scale factor, register count, and byte/word order. |
 
-## 9. Deployment record
+## 8. Deployment record
 
 Keep this record with each installed gateway:
 
