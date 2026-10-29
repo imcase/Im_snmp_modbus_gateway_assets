@@ -133,6 +133,10 @@ tables.
 > - **Warning:** If the register address is incorrect, the gateway may not receive a result
 > when polling the Modbus device.
 
+<br>
+
+---
+
 ## 5. SNMP access and object addressing
 
 SNMP managers can read gateway values with `snmpget` or `snmpwalk`. Where
