@@ -36,7 +36,7 @@ Go-back-to: [Bookmarks](#bookmarks)
   - [ ] Add a `Settings` subsection.
   - [ ] Add a `System` subsection.
   - [ ] State that all Web Console `Settings` are __retained__ after a restart because they are stored in FLASH.
-- [ ] __MUST__ explicitly state that the device must be restarted after every modification.
+- [ ] __MUST__ explicitly state that the device must be `restarted after every modification`.
 - [ ] __MUST__ document `MD button` handling, including the following reset procedure:
 ```
 #### Resetting settings to defaults

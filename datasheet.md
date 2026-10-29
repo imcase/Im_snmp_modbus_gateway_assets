@@ -1,20 +1,9 @@
 # SNMP–Modbus Gateway
 
-**Firmware:** `SNMP_Modbus_Gateway` v1.0.2
+**Firmware:** `SNMP_Modbus_Gateway` v1.0.2  
 **Platform:** Tibbo TPP2W(G2) in a TPB2L(G2) enclosure
 
-> ## Configuration storage and restart behavior
->
-> Only the user-configured polling definitions in `TABLE_DEVICES_INPUT` are
-> stored in flash and survive a restart. `TABLE_DEVICES_OUTPUT` and
-> `TABLE_SETTINGS` are RAM tables: their contents do not persist across a
-> restart.
->
-> **After any change to `TABLE_DEVICES_INPUT`, or to Settings through the Web
-> Console or SNMP, restart the device.** Until it restarts, the change is
-> stored but not applied. After restart, verify that the persistent input
-> mappings have loaded, the runtime tables have been rebuilt, and the expected
-> polling result and SNMP object are present.
+<br>
 
 ---
 
@@ -39,6 +28,10 @@ The user configures which Modbus values to read, and how each value appears to
 SNMP software. This means the same gateway can be used with different types of
 Modbus equipment instead of being limited to a single sensor or meter.
 
+<br>
+
+---
+
 ## 2. Hardware
 
 | Item | Detail |
@@ -55,6 +48,10 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | MD button | On-board setup (MD) button. Hold for 5 s and release to reset all settings to their defaults |
 | RST button | On-board restart (RST) button |
 
+<br>
+
+---
+
 ## 3. Network configuration and services
 
 | Item | Setting |
@@ -64,7 +61,7 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | Time sync | SNTP against 216.239.35.0 (time.google.com), applied with the configured time zone |
 | Web console | HTTP, port 80, 3 concurrent connections |
 
-<br>
+---
 
 > **Default IP address.** Out of the box the device uses the static address
 > `192.168.1.40`. This is a placeholder so the device can be reached on first
@@ -73,10 +70,19 @@ Modbus equipment instead of being limited to a single sensor or meter.
 > network, or enter a static IP, netmask and gateway of your own choosing.
 > Restart the device for the new address to take effect.
 
+---
+
 > The **network** must allow communication between the gateway and its configured
 > SNTP servers, as well as between the gateway and authorized SNMP managers.
+---
+
+<br>
 
 ![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_ethernet_config.png)
+
+<br>
+
+---
 
 ## 4. Web Console
 
@@ -94,14 +100,20 @@ your SNMP monitoring system.
 
 <br>
 
+---
+
 > Use `TABLE_DEVICES_INPUT` to define which Modbus values the gateway monitors.
 > `TABLE_DEVICES_OUTPUT` shows the current polling results; it is a live view,
 > not a saved history, and is rebuilt after restart. `TABLE_SETTINGS` contains
 > the settings used by the Web Console.
 
+---
+
 > **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Web
 > Console or SNMP, restart the device.** The change is retained immediately, but
 > the polling engine does not apply it until the device restarts.
+
+---
 
 <br>
 
