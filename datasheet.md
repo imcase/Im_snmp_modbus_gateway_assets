@@ -75,10 +75,6 @@ Modbus equipment instead of being limited to a single sensor or meter.
 
 <br>
 
-![Ethernet settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_network.png)
-
-<br>
-
 ---
 
 ## 4. Web Console
@@ -140,14 +136,13 @@ tables.
 Use the Settings area to review device information and configure polling,
 network, and SNMP access. 
 
-> Reminder: restart the device after changing any setting so the
-> new value is applied.
+> **Reminder:** _RESTART_ the device after changing any setting so the new value is applied.
 
 <br>
 
 #### 4.2.1 Info
 
-The **Info** group provides maintenance and capacity information.
+The `Info` group provides **maintenance** and **capacity** information.
 
 ![Web Console Settings, Info group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_info.png)
 
@@ -155,9 +150,11 @@ The **Info** group provides maintenance and capacity information.
 
 #### 4.2.2 Config
 
-The Config group lets you set the polling interval and enable or disable debug
-output. Use the polling interval appropriate for the connected Modbus device
-and the required update rate.
+Use the `Config` group to set the **Polling Interval** and **Debugprint**.
+
+> **NOTE:** Adjust the *Polling Interval* to suit your application requirements.
+
+![Web Console Settings, Config group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_config.png)
 
 <br>
 
@@ -166,6 +163,8 @@ and the required update rate.
 The Network group lets you enable DHCP or configure a static Ethernet IP
 address, netmask, and gateway. When DHCP is enabled, the static Ethernet
 address fields are unavailable.
+
+![Web Console Settings, Network group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_network.png)
 
 <br>
 
