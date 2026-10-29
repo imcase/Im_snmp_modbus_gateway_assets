@@ -79,7 +79,7 @@ Modbus equipment instead of being limited to a single sensor or meter.
 
 ### 4.1 Database
 For every value you want to monitor, configure the gateway with the relevant Modbus device and register.
-The gateway reads that register at the configured polling interval (5 seconds by default) and makes the latest value available to
+The gateway reads that register at the **configured polling interval** and makes the latest value available to
 your SNMP monitoring system.
 
 | Table | Storage | Entries | User-defined | After reboot | Purpose |
@@ -182,7 +182,7 @@ You can set the SNMP port, read and write community strings, device description,
 
 <br>
 
-### Scalar Instance Object-ID
+### 4.2.4.1 Scalar Instance Object-ID
 
 Each mapped gateway value is available through a **full SNMP OID**.
 Its composition is:
