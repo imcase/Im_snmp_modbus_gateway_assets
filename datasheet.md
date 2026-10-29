@@ -1,7 +1,7 @@
 # SNMP–Modbus Gateway
 
-**Firmware:** `SNMP_Modbus_Gateway` v1.0.2  
-**Platform:** Tibbo TPP2W(G2) in a TPB2L(G2) enclosure
+> **Firmware:** `SNMP_Modbus_Gateway` v1.0.2  
+> **Platform:** Tibbo TPP2W(G2) in a TPB2L(G2) enclosure
 
 <br>
 
@@ -61,20 +61,17 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | Time sync | SNTP against 216.239.35.0 (time.google.com), applied with the configured time zone |
 | Web console | HTTP, port 80, 3 concurrent connections |
 
----
+<br>
 
-> **Default IP address.** Out of the box the device uses the static address
+> **NOTE:**
+> - **Default IP address.** Out of the box the device uses the static address
 > `192.168.1.40`. This is a placeholder so the device can be reached on first
 > power-up; you will most likely want to change it. On the Settings page,
 > Ethernet tab, either enable **DHCP** so the device obtains an address from your
 > network, or enter a static IP, netmask and gateway of your own choosing.
 > Restart the device for the new address to take effect.
-
----
-
-> The **network** must allow communication between the gateway and its configured
+> - The **network** must allow communication between the gateway and its configured
 > SNTP servers, as well as between the gateway and authorized SNMP managers.
----
 
 <br>
 
@@ -100,60 +97,50 @@ your SNMP monitoring system.
 
 <br>
 
----
-
-> Use `TABLE_DEVICES_INPUT` to define which Modbus values the gateway monitors.
+> **NOTE:**
+> - Use `TABLE_DEVICES_INPUT` to define which Modbus values the gateway monitors.
 > `TABLE_DEVICES_OUTPUT` shows the current polling results; it is a live view,
 > not a saved history, and is rebuilt after restart. `TABLE_SETTINGS` contains
 > the settings used by the Web Console.
-
----
-
-> **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Web
+> - **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Web
 > Console or SNMP, restart the device.** The change is retained immediately, but
 > the polling engine does not apply it until the device restarts.
 
----
+<br>
+
+### Database column reference
+
+The following table explains the columns shown in the Web Console database
+tables.
+
+| Column | Used by table | Meaning |
+| --- | --- | --- |
+| `NAME` | Input, Output, Settings | A descriptive name for the mapping or setting. |
+| `DEVICE_ID` | Input, Output | The Modbus address of the field device. |
+| `REG_ADDR` | Input, Output | The Modbus register address to read or write. |
+| `FUNC_CODE` | Input | The Modbus function code used to access the register. |
+| `OID_COLUMN` | Input, Output, Settings | The identifier used to associate the entry with its SNMP object. |
+| `HASH_ID` | Output | An internal unique identifier for the polling result. |
+| `VALUE` | Output | The latest value read from the Modbus device. |
+| `INFO` | Settings | Additional information describing the Web Console setting. |
 
 <br>
 
-**CONTINE FROM HERE!**
+> **NOTE:**
+> - **Register addressing and value interpretation:**
+> Enter the register number exactly as shown in the connected device's Modbus
+> register map.
+> - **Warning:** If the register address is incorrect, the gateway may not receive a result
+> when polling the Modbus device.
 
+## 5. SNMP access and object addressing
 
+SNMP managers can read gateway values with `snmpget` or `snmpwalk`. Where
+write access is configured and authorized, they can also update supported
+values with `snmpset`.
 
-| Mapping property | Meaning |
-| --- | --- |
-| Name | Human-readable name for the mapping |
-| Modbus unit ID | Address of the target Modbus server/device (1–255) |
-| Function code | Modbus operation used for the mapping; confirm the device supports it |
-| Register address | Protocol address expected by the configured Modbus client (0–65535) |
-| SNMP object column | Object identifier column used below the configured private enterprise branch |
-| Value type | SNMP representation of the mapped value, such as integer or string |
-| Access | Read-only for telemetry, or read/write only for approved control points |
-
-### Register addressing and value interpretation
-
-Do not assume a datasheet reference number is the address used on the wire.
-For example, documentation may call a holding register `40001`, while the
-Modbus protocol address is `0`. Confirm the address format expected by the
-gateway and the connected device.
-
-For multi-register, signed, floating-point, or scaled measurements, define the
-byte order, word order, signedness, and scale in the mapping record. A value
-that is numerically plausible but decoded in the wrong order is not valid.
-
-### Write path
-
-For a configured read/write object, an SNMP SET is validated and matched to a
-write mapping. The gateway sends the configured Modbus write function and
-reports success, failure, or a reboot-required state to the management path.
-The application includes retry handling for Modbus writes; communication
-failures must still be investigated at the RS-485/device layer.
-
-Remote writes can affect physical equipment. Protect them with least-privilege
-SNMP credentials, restricted network access, and a documented rollback plan.
-
-## 5. SNMP object addressing
+> **Warning:** SNMP writes can affect connected equipment. Enable write access
+> only for approved control points and authorized users.
 
 The project uses a private enterprise branch rooted at:
 
