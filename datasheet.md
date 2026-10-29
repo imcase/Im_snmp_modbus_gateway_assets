@@ -3,7 +3,7 @@
 > **Firmware:** `SNMP_Modbus_Gateway` v1.0.2  
 > **Platform:** Tibbo TPP2W(G2) in a TPB2L(G2) enclosure
 
-<br>
+<br><br>
 
 ---
 
@@ -29,7 +29,7 @@ The user configures which Modbus values to read, and how each value appears to S
 This means the same gateway can be used with different types of
 Modbus equipment instead of being limited to a single sensor or meter.
 
-<br>
+<br><br>
 
 ---
 
@@ -49,7 +49,7 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | MD button | On-board setup (MD) button. Hold for 5 s and release to reset all settings to their defaults |
 | RST button | On-board restart (RST) button |
 
-<br>
+<br><br>
 
 ---
 
@@ -71,7 +71,7 @@ Modbus equipment instead of being limited to a single sensor or meter.
 > - A **network connection** is required for communication between the gateway
 > and its configured SNTP servers, as well as authorized SNMP managers.
 
-<br>
+<br><br>
 
 ---
 
@@ -200,26 +200,35 @@ Its composition is:
 
 <br>
 
-Example bench query (replace the address, community, and OID with the deployed
-configuration):
+### 4.3 System
 
-```bash
-snmpget -v2c -c <bench-community> -On <gateway-ip> \
-  1.3.6.1.4.1.20738.1.<column>.0
-```
+The `System` area provides two device-management actions: **Reboot Device**
+and **Initialize Settings**.
+
+#### 4.3.1 Reboot Device
+
+Use **Reboot Device** to restart the device.
+
+> Restart the device after changing `TABLE_DEVICES_INPUT` or Web Console
+> Settings so the new configuration is applied.
+
+#### 4.3.2 Initialize Settings
+
+Use **Initialize Settings** to restore the device's configuration to its factory default settings.
+
+> **MD-button:**
+>
+> You can also restore the default settings using the on-board **MD button**:
+>
+> - Press and hold the button for at least **5 seconds**, then release it.
+> - Releasing the button _before_ 5 seconds have elapsed has _no effect_.
 
 <br>
 
-### 4.3 System
+![Web Console, System area](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_system.png)
 
-Use the System page for device-level actions, including restarting the gateway
-after configuration changes.
 
-#### Resetting settings to defaults
-
-To restore the default settings, press and hold the on-board **MD button** for
-**5 seconds**, then release it. Releasing the button before 5 seconds have
-elapsed does nothing.
+<br><br>
 
 --- 
 
