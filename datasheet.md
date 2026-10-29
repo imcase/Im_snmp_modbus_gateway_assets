@@ -1,5 +1,3 @@
-# SNMP–Modbus Gateway
-
 > **Firmware:** `SNMP_Modbus_Gateway` v1.0.2  
 > **Platform:** Tibbo TPP2W(G2) in a TPB2L(G2) enclosure
 
@@ -182,7 +180,7 @@ You can set the SNMP port, read and write community strings, device description,
 
 <br>
 
-### 4.2.4.1 Scalar Instance Object-ID
+#### 4.2.4.1 Scalar Instance Object-ID
 
 Each mapped gateway value is available through a **full SNMP OID**.
 Its composition is:
@@ -211,6 +209,8 @@ Use **Reboot Device** to restart the device.
 
 > Restart the device after changing `TABLE_DEVICES_INPUT` or Web Console
 > Settings so the new configuration is applied.
+
+<br>
 
 #### 4.3.2 Initialize Settings
 
