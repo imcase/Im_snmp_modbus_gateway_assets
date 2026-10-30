@@ -8,8 +8,7 @@
 ## 1. Overview
 
 The SNMP–Modbus Gateway lets **SNMP monitoring software read** values from
-**Modbus equipment** over **Ethernet**.
-It is used when equipment such as meters, sensors,
+**Modbus equipment** over **Ethernet**. It is used when equipment such as meters, sensors, 
 controllers, or other industrial devices communicates with Modbus, while the
 customer's monitoring system uses SNMP.
 
@@ -243,12 +242,16 @@ can use `snmpset` to write a Modbus value and update a gateway setting.
 
 ### 5.1 Connect the Modbus BP#02 to the Gateway
 
-In this example, we use the Tibbo Modbus BP#02, an ambient-temperature and
-relative-humidity sensor. Connect it to the TPP2(G2) through the 4-terminal
-block.
+This example uses a Tibbo Modbus BP#02, an ambient-temperature and
+relative-humidity sensor. The BP#02 is used only as an example: you can
+connect another compatible Modbus device instead.
 
+Connect the BP#02 to the TPP2W(G2) as shown below. Connect each wire to the
+terminal with the matching label: `VCC` to `VCC`, `GND` to `GND`, `Tx` to
+`Tx`, and `Rx` to `Rx`. When using a different Modbus device, follow its
+documentation for the required power and communication connections.
 
-<Show image of BP#02 and TPP2G2>
+![Connecting the BP#02 sensor to the TPP2W(G2)](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/tpp2wg2_modbus.png)
 
 
 <br><br>
