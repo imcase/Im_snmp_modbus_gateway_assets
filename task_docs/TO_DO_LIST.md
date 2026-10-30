@@ -36,28 +36,24 @@ Go-back-to: [Bookmarks](#bookmarks)
   - [X] Add a `Settings` subsection.
   - [ ] Add a `System` subsection.
   - [X] State that all Web Console `Settings` are __retained__ after a restart because they are stored in FLASH.
-- [ ] __MUST__ explicitly state that the device must be `restarted after every modification`.
-4. [PENDING] __MUST__ document `MD button` handling, including the following reset procedure:
-```
-#### Resetting settings to defaults
+- [X] __MUST__ explicitly state that the device must be `restarted after every modification`.
+4. [COMPLETED] __MUST__ document `MD button` handling, including the following reset procedure:
 
-Press and hold the on-board **MD button** for **5 seconds**, then release it.
-All settings are initialized back to their default values (including the
-network settings, so the device returns to the static address
-`192.168.1.40`, see §3). The reset is recorded in the event log as a
-`SETTINGS_INIT` event (§9). Releasing the button before 5 seconds have
-elapsed does nothing.
-```
 5. [PENDING] __MUST__ add an example showing from start to end how to use the device
 - [ ] Do NOT forget an example of `snmpwalk`, `snmpget`, and `snmpset`
+- [ ] Do __NOT__ forget to also use an example with `reboot_device`
+**NOTE:** this is important because the customer should be aware that they have to trigger `reboot_device` twice within `10 seconds` or this to take effect
 
+6. [PENDING] Once `product_guide.md` is completed, copy the content to `AppBlocks app: SNMP_Modbus_Gateway`
+- [ ] Verify that the guide is present in this app
+7. [PENDING] Export `AppBlocks app: SNMP_Modbus_Gateway`
 
-10. [IN_PROGRESS] Upload the project file `SNMP_Modbus_Gateway.json` to this repo
+10. [PENDING] Upload the project file `SNMP_Modbus_Gateway.json` to this repo `Im_snmp_modbus_gateway_assets`
 **NOTE:** May need to keep on copying updated versions of this project.
-11. [PENDING] Add `imcase/snmp_modbus_gateway_assets` as __SUBMODULE__ to this repo
+11. [PENDING] Add `imcase/snmp_modbus_gateway_assets` as __SUBMODULE__ to `appblocks_snmp_modbus_gateway`
 12. [PENDING] On github, under the `tibbotech` account, create a __PUBLIC__ repo called `snmp_modbus_gateway_assets`
 - [ ] Copy all the files and folders from `imcase/snmp_modbus_gateway_assets` to `tibbotech/snmp_modbus_gateway_assets`
-- [ ] In `datasheet.md` change references of __images__ from `imcase/Im_snmp_modbus_gateway_assets` to `tibbotech/snmp_modbus_gateway_assets`
+- [ ] In `product_guide.md` change references of __images__ from `imcase/Im_snmp_modbus_gateway_assets` to `tibbotech/snmp_modbus_gateway_assets`
 **NOTE:** If you do NOT do this, then you won't be able to see the images
 
 
