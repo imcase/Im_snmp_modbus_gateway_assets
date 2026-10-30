@@ -214,8 +214,6 @@ Use **Reboot Device** to restart the device.
 > Restart the device after changing `TABLE_DEVICES_INPUT` or Device Console
 > Settings so the new configuration is applied.
 
-<br>
-
 #### 4.3.2 Initialize Settings
 
 Use **Initialize Settings** to restore the device's configuration to its factory default settings.
@@ -286,6 +284,43 @@ Using your preferred web browser, navigate to [http://192.168.1.40](http://192.1
 <br>
 
 ### 5.4 Configure Settings
+
+Open **Settings** in the Device Console. Review the network, SNMP, and polling
+settings required for your installation. Restart the gateway after making any
+changes so that the new settings are applied.
+
+> **NOTE:** For an overview of the available settings, see [Section 4.2, Settings](#42-settings).
+
+#### 5.4.1 Polling Interval
+
+In the **Config** group, set the **Polling Interval** to the value that suits
+your application. This setting determines how often the gateway reads values
+from the connected Modbus device.
+
+#### 5.4.2 Network
+
+In the **Network** group, choose the network method required by your
+installation:
+
+- Enable **DHCP** if your network automatically assigns IP addresses.
+- Leave **DHCP** disabled to use a static IP address, then enter the IP address,
+  netmask, and gateway supplied by your network administrator.
+
+After changing the network settings and restarting the gateway, reconnect to
+the Device Console using its new IP address.
+
+> **NOTE:** This guide uses `192.168.1.40` throughout the example.
+
+#### 5.4.3 SNMP
+
+In the **SNMP** group, configure the SNMP port and access credentials required
+by your monitoring system. Configure either SNMPv2c community strings or SNMPv3
+user and security settings, as required by your organization.
+
+Enable write access only when it is required for approved control points. Use
+credentials and security settings approved by your organization.
+
+> **NOTE:** This guide uses the default SNMP settings throughout the example.
 
 
 
