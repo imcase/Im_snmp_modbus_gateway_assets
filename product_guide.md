@@ -246,12 +246,38 @@ This example uses a Tibbo Modbus BP#02, an ambient-temperature and
 relative-humidity sensor. The BP#02 is used only as an example: you can
 connect another compatible Modbus device instead.
 
+> **IMPORTANT:** Before replacing a Modbus sensor or changing its wiring,
+> disconnect power from the gateway. Reconnect power only after the new sensor
+> and all wiring have been connected correctly.
+
 Connect the BP#02 to the TPP2W(G2) as shown below. Connect each wire to the
 terminal with the matching label: `VCC` to `VCC`, `GND` to `GND`, `Tx` to
 `Tx`, and `Rx` to `Rx`. When using a different Modbus device, follow its
 documentation for the required power and communication connections.
 
 ![Connecting the BP#02 sensor to the TPP2W(G2)](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/tpp2wg2_modbus.png)
+
+Should you be interested, more Tibbo Modbus models are available [here](https://tibbo.com/store/rs485-modbus-sensors.html).
+
+<br>
+
+### 5.2 Connect the Network Cable and Power Adapter
+
+Connect an Ethernet cable from the gateway's RJ45 port to your local network.
+Then connect the supplied power adapter to the gateway. The gateway starts when
+power is connected. Allow up to 20 seconds for the device to fully boot and
+become ready for use.
+
+![Connecting the Ethernet cable and power adapter to the TPP2W(G2)](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/tpp2wg2_ethernet_power.png)
+
+### 5.3 Connect to the Device Console
+
+Using your preferred web browser, navigate to [http://192.168.1.40](http://192.168.1.40). The Home page should be displayed.
+
+![Web Console, Home area](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_home.png)
+
+<br>
+
 
 
 <br><br>
