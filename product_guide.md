@@ -57,7 +57,7 @@ Modbus equipment instead of being limited to a single sensor or meter.
 | Ethernet | static IP/netmask/gateway, or DHCP  |
 | SNMP | SNMPv2c and SNMPv3 agent, port 161, configurable read/write communities and SNMPv3 security credentials |
 | Time sync | SNTP against 216.239.35.0 (time.google.com), applied with the configured time zone |
-| Web console | HTTP, port 80, 3 concurrent connections |
+| Device Console | HTTP, port 80, 3 concurrent connections |
 
 <br>
 
@@ -72,7 +72,12 @@ Modbus equipment instead of being limited to a single sensor or meter.
 
 ---
 
-## 4. Web Console
+## 4. Device Console
+
+> The browser-based configuration interface is called the **Device Console**. It
+> may also be referred to as the Web Console in AppBlocks documentation.
+
+<br>
 
 ### 4.1 Database
 For every value you want to monitor, configure the gateway with the relevant Modbus device and register.
@@ -83,22 +88,22 @@ your SNMP monitoring system.
 | --- | --- | --- | --- | --- | --- |
 | `TABLE_DEVICES_INPUT` | Flash | Max. 30 | Yes | Retained | Modbus-to-SNMP mappings |
 | `TABLE_DEVICES_OUTPUT` | RAM | Max. 30 | No | Rebuilt | Latest polling results |
-| `TABLE_SETTINGS` | RAM | 22 predefined | No | Recreated | Web Console settings |
+| `TABLE_SETTINGS` | RAM | 22 predefined | No | Recreated | Device Console settings |
 
 <br>
 
 > **NOTE:**
 > - Use `TABLE_DEVICES_INPUT` to define which Modbus values the gateway monitors.
 > - `TABLE_DEVICES_OUTPUT` shows the current polling results; it is a live view, not a saved history, and is rebuilt after restart.
-> - `TABLE_SETTINGS` contains the settings used by the Web Console.
-> - **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Web Console or SNMP, restart the device.**
+> - `TABLE_SETTINGS` contains the settings used by the Device Console.
+> - **After any change to `TABLE_DEVICES_INPUT`, or to `Settings` through the Device Console or SNMP, restart the device.**
 > The change is retained immediately, but the polling engine does not apply it until the device restarts.
 
 <br>
 
 ### Column reference
 
-The following table explains the columns shown in the Web Console database
+The following table explains the columns shown in the Device Console database
 tables.
 
 | Column | Used by table | Meaning |
@@ -110,7 +115,7 @@ tables.
 | `OID_COLUMN` | Input, Output, Settings | The identifier used to associate the entry with its SNMP object. |
 | `HASH_ID` | Output | An internal unique identifier for the polling result. |
 | `VALUE` | Output | The latest value read from the Modbus device. |
-| `INFO` | Settings | Additional information describing the Web Console setting. |
+| `INFO` | Settings | Additional information describing the Device Console setting. |
 
 <br>
 
@@ -136,7 +141,7 @@ network, and SNMP access.
 
 The `Info` group provides **maintenance** and **capacity** information.
 
-![Web Console Settings, Info group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_info.png)
+![Device Console Settings, Info group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_info.png)
 
 <br>
 
@@ -146,7 +151,7 @@ Use the `Config` group to set the **Polling Interval** and **Debugprint**.
 
 > **NOTE:** Adjust the `Polling Interval` to suit your application requirements.
 
-![Web Console Settings, Config group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_config.png)
+![Device Console Settings, Config group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_config.png)
 
 <br>
 
@@ -157,7 +162,7 @@ address, netmask, and gateway.
 
 > **NOTE:** When DHCP is enabled, the static Ethernet address fields are unavailable.
 
-![Web Console Settings, Network group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_network.png)
+![Device Console Settings, Network group](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_network.png)
 
 <br>
 
@@ -166,7 +171,7 @@ address, netmask, and gateway.
 Use the `SNMP` group to configure how your monitoring system connects to the gateway.
 You can set the SNMP port, read and write community strings, device description, system object ID, and SNMPv3 user and security settings.
 
-![Web Console Settings, SNMP basic settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_snmp_basic_settings.png)
+![Device Console Settings, SNMP basic settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_snmp_basic_settings.png)
 
 > **NOTE:**
 > - **Read:** Use SNMP monitoring software to read gateway values with `snmpget` or `snmpwalk`.
@@ -175,7 +180,7 @@ You can set the SNMP port, read and write community strings, device description,
 
 <br>
 
-![Web Console Settings, SNMPv3 security settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_snmp_security_settings.png)
+![Device Console Settings, SNMPv3 security settings](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_snmp_security_settings.png)
 
 <br>
 
@@ -206,7 +211,7 @@ and **Initialize Settings**.
 
 Use **Reboot Device** to restart the device.
 
-> Restart the device after changing `TABLE_DEVICES_INPUT` or Web Console
+> Restart the device after changing `TABLE_DEVICES_INPUT` or Device Console
 > Settings so the new configuration is applied.
 
 <br>
@@ -224,7 +229,7 @@ Use **Initialize Settings** to restore the device's configuration to its factory
 
 <br>
 
-![Web Console, System area](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_system.png)
+![Device Console, System area](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_settings_system.png)
 
 
 <br><br>
@@ -239,6 +244,8 @@ system using `snmpwalk`.
 
 It also includes a brief SNMP write example, showing how an authorized client
 can use `snmpset` to write a Modbus value and update a gateway setting.
+
+<br>
 
 ### 5.1 Connect the Modbus BP#02 to the Gateway
 
@@ -272,11 +279,50 @@ become ready for use.
 
 ### 5.3 Connect to the Device Console
 
-Using your preferred web browser, navigate to [http://192.168.1.40](http://192.168.1.40). The Home page should be displayed.
+Using your preferred web browser, navigate to [http://192.168.1.40](http://192.168.1.40). The **Home** page should be displayed.
 
-![Web Console, Home area](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_home.png)
+![Device Console, Home area](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_home.png)
 
 <br>
+
+### 5.4 Configure Settings
+
+
+
+<br>
+
+### 5.5 Configure Modbus Mapping in `TABLE_DEVICES_INPUT`
+
+
+
+<br>
+
+### 5.6 Restart Device
+
+
+
+<br>
+
+### 5.7 Verify Modbus Polled Data via the Device Console
+
+
+
+<br>
+
+### 5.8 Verify Modbus Polled Data via SNMP
+
+
+
+<br>
+
+### 5.9 Write Data to Modbus
+
+
+
+<br>
+
+### 5.10 Change Settings via SNMP
+
 
 
 
