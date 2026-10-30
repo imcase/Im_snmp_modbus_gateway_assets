@@ -197,7 +197,7 @@ Its composition is:
 > - By default, `sysObjectID` is set to `1.3.6.1.4.1.20738`. It may be
 >   extended with a child OID, for example `1.3.6.1.4.1.20738.45.46`.
 > - The final `.0` is required when querying an individual value.
-> - Configure `OID_COLUMN` in `TABLE_DEVICES_INPUT`.
+> - Each `OID_COLUMN` value must be **UNIQUE**.
 > - To minimize mistakes, use the full OID returned by `snmpwalk`.
 
 <br>
@@ -322,11 +322,24 @@ credentials and security settings approved by your organization.
 
 > **NOTE:** This guide uses the default SNMP settings throughout the example.
 
-
-
 <br>
 
 ### 5.5 Configure Modbus Mapping in `TABLE_DEVICES_INPUT`
+
+Open **Database** in the Device Console. In `TABLE_DEVICES_INPUT`, add a
+mapping for each Modbus value that you want to make available through SNMP.
+
+> **NOTE:**
+> - Enter the `DEVICE_ID`, `REG_ADDR`, and `FUNC_CODE` exactly as specified in
+>   the connected field device's Modbus register map or datasheet.
+> - Each `OID_COLUMN` value must be **UNIQUE**. For details, see
+>   [Section 4.2.4.1, Scalar Instance Object-ID](#4241-scalar-instance-object-id).
+> - `OID_COLUMN = 207` is used later in this guide to demonstrate **Write Data
+>   to Modbus**.
+
+<br>
+
+![Device Console Database, TABLE_DEVICES_INPUT](https://raw.githubusercontent.com/imcase/Im_snmp_modbus_gateway_assets/refs/heads/main/assets/snmp_modbus_gateway_webconsole_database_table_devics_input.png)
 
 
 
