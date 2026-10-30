@@ -306,10 +306,11 @@ installation:
 - Leave **DHCP** disabled to use a static IP address, then enter the IP address,
   netmask, and gateway supplied by your network administrator.
 
+> **NOTE:** This guide uses `192.168.1.40` throughout the example.
+
+
 After changing the network settings and restarting the gateway, reconnect to
 the Device Console using its new IP address.
-
-> **NOTE:** This guide uses `192.168.1.40` throughout the example.
 
 #### 5.4.3 SNMP
 
@@ -347,6 +348,7 @@ mapping for each Modbus value that you want to make available through SNMP.
 
 ### 5.6 Restart Device
 
+Restart the device so that the new configuration is applied.
 
 
 <br>
