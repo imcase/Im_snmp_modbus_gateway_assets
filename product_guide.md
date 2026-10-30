@@ -348,12 +348,13 @@ mapping for each Modbus value that you want to make available through SNMP.
 
 ### 5.6 Restart Device
 
-Restart the device so that the new configuration is applied.
+Restart the device so that the new configuration is applied. Allow up to 20
+seconds for the device to fully boot and become ready for use.
 
 
 <br>
 
-### 5.7 Verify Modbus Polled Data via the Device Console
+### 5.7 Verify Modbus Polled Data in `TABLE_DEVICES_OUTPUT`
 
 
 
